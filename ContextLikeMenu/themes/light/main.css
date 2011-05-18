@@ -1,0 +1,19 @@
+.mj-contextlikemenu-menu {
+	position: fixed;
+	background: none repeat scroll 0 0 white;
+	box-shadow: 0 1px 5px #CCC;
+	border: 1px solid #C3D1EC;
+}
+
+.mj-contextlikemenu-menu li {
+	list-style: none;
+	line-height: 17px;
+	margin: 3px;
+	padding:4px;
+	padding-left: 6px;
+}
+
+.mj-contextlikemenu-menu li:hover {
+	cursor: pointer;
+	background-color: #e4ebf8;
+}
