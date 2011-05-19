@@ -3,6 +3,7 @@
 	background: none repeat scroll 0 0 white;
 	box-shadow: 0 1px 5px #CCC;
 	border: 1px solid #C3D1EC;
+	z-index: 100000;
 }
 
 .mj-contextlikemenu-menu li {
