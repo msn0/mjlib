@@ -1,10 +1,11 @@
-mjlib is released under MIT
-
 mjlib is library independent javascript library. 
+
 Current features include:
 - Core: fast class and events manipulation engine.
 - PopupMenu
 - more features/widgets soon...
+
+mjlib is released under MIT license
 
 Copyright (c) 2011 Michał Jezierski
 
