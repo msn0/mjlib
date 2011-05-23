@@ -104,7 +104,6 @@ var PopupMenu = function(params) {
             isOver = true;
         });
         
-        calculatePosition();
         populateElement();
     };
 
@@ -115,7 +114,6 @@ var PopupMenu = function(params) {
     var calculatePosition = function(){
         var position = MJ.getPosition(that.element);
         that.xOffset = (function(){
-        	console.log(that);
         	var diff = position.x + Number(that.width.replace(/(px)|(pt)/, '')) - document.documentElement.clientWidth;
         	if(diff > 0){
         		return position.x - diff - 5;
@@ -137,8 +135,6 @@ var PopupMenu = function(params) {
         divElement.style.width = that.width;
         divElement.style.top = that.yOffset + 'px';
         divElement.style.left = that.xOffset + 'px';
-        console.log(divElement.style.left);
-        console.log(that.xOffset);
         divElement.style.display = 'none';
     };
 
