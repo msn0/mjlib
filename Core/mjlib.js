@@ -106,9 +106,7 @@ var MJ = {
      */
     getPosition : function(obj) {
         var xOffset = 0, yOffset=0;
-        console.log("");
         while(obj!=null){
-        	console.log(obj.offsetLeft);
         	xOffset += obj.offsetLeft;
             yOffset += obj.offsetTop;
             obj = obj.offsetParent;
