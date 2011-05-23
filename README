@@ -1,4 +1,4 @@
-mjlib is library independent javascript library. 
+mjlib is pure javascript library. 
 
 Current features:
 - Core: fast class and events manipulation engine.
