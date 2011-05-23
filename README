@@ -1,6 +1,6 @@
 mjlib is library independent javascript library. 
 
-Current features include:
+Current features:
 - Core: fast class and events manipulation engine.
 - PopupMenu
 - more features/widgets soon...
