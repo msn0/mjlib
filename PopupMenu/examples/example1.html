@@ -10,9 +10,10 @@
 </head>
 <body>
 <div >
-	<div id="element1" class="texthover">Menu</div>
-	<div id="element2" class="texthover">Move your mouse over me!</div>
-	<div id="element3" class="texthover">Please, click me!</div>
+	<div id="element1" class="blue texthover">Menu</div>
+	<div id="element2" class="blue texthover">Move your mouse over me!</div>
+	<div id="element3" class="white texthover">Please, click me!</div>
+	<div id="element4" class="blue texthover">Simple menu</div>
 </div>
 	<script type="text/javascript">
 		
@@ -39,7 +40,9 @@
 				link : 'http://picasa.com'
 			}, {
 				text : "<div id='myDiv'>Do something...</div>",
-				link : function(){alert('Do something clicked!')}
+				link : function(){
+					alert('Do something clicked!')
+					}
 			} ],
 			element : document.getElementById('element1')
 		});
@@ -62,7 +65,7 @@
 		
 		var simpleMenu3 = new PopupMenu({
 			width : "280px",
-			hideTimeout: 100000,
+			hideTimeout: 100,
 			entries : [ {
 				text : 'Edit your profile',
 				link : 'http://google.pl'
@@ -75,6 +78,31 @@
 			} ],
 			element : document.getElementById('element3')
 		});
+		
+		var simpleMenu4 = new PopupMenu({
+            width : 180,
+            hideTimeout: 100,
+            entries : [ {
+                text : 'lorem ipsum',
+                link : function(){alert('1 clicked!');}
+            }, {
+                text : 'dolor sit amet',
+                link : function(){alert('2 clicked!');}
+            }, {
+                text : 'rhoncus venenatis',
+                link : function(){alert('3 clicked!');}
+            }, {
+                text : 'a elementum suspendisse',
+                link : function(){alert('4 clicked!');}
+            }, {
+                text : 'pellentesque',
+                link : function(){alert('5 clicked!');}
+            }, {
+                text : 'eu mus',
+                link : function(){alert('6 clicked!');}
+            } ],
+            element : document.getElementById('element4')
+        });
 		
 	</script>
 

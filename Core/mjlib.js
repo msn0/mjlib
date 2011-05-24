@@ -1,5 +1,5 @@
 /**
- * mjlib is released under MIT
+ * mjlib is released under the MIT License
  * Copyright (c) 2011 Michał Jezierski
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,98 +22,100 @@
  *
  */
 
- /** 
+/**
  * MJ core object. Actual functionality contains: 
- * 	- very fast css class manipulation engine 
- * 	- adding cross-browser events 
+ *  (1) very fast css class manipulation engine 
+ *  (2) cross-browser support 
+ *  (3) getting elements absolute position
  */
 var MJ = {
 
-    /**
-     * Check if object has desired class
-     * 
-     * @param obj - examined object
-     * @param clsName - checked className
-     */
-    hasClass : function(obj, clsName) {
-        return ((' ' + obj.className + ' ').indexOf(' ' + clsName + ' ') > -1);
-    },
+	/**
+	 * Check if object has desired class
+	 * 
+	 * @param obj - examined object
+	 * @param clsName - checked className
+	 */
+	hasClass : function(obj, clsName) {
+		return ((' ' + obj.className + ' ').indexOf(' ' + clsName + ' ') > -1);
+	},
 
-    /**
-     * Remove class from object
-     * 
-     * @param obj - examined object
-     * @param clsName - class to be removed
-     */
-    removeClass : function(obj, clsName) {
-        if (MJ.hasClass(obj, clsName)) {
-            var cls = ' ' + obj.className + ' ';
-            obj.className = cls.replace(' ' + clsName + ' ', ' ').replace(
-                /\s(.*)\s$/, '$1');
-        }
-    },
+	/**
+	 * Remove class from object
+	 * 
+	 * @param obj - examined object
+	 * @param clsName - class to be removed
+	 */
+	removeClass : function(obj, clsName) {
+		if (MJ.hasClass(obj, clsName)) {
+			var cls = ' ' + obj.className + ' ';
+			obj.className = cls.replace(' ' + clsName + ' ', ' ').replace(
+					/\s(.*)\s$/, '$1');
+		}
+	},
 
-    /**
-     * Add class to object
-     * 
-     * @param obj - examined object
-     * @param clsName - class to be added
-     */
-    addClass : function(obj, clsName) {
-        if (MJ.hasClass(obj, clsName)) {
-            return;
-        } else {
-            obj.className += ' ' + clsName;
-        }
+	/**
+	 * Add class to object
+	 * 
+	 * @param obj - examined object
+	 * @param clsName - class to be added
+	 */
+	addClass : function(obj, clsName) {
+		if (MJ.hasClass(obj, clsName)) {
+			return;
+		} else {
+			obj.className += ' ' + clsName;
+		}
 
-    },
+	},
 
-    /**
-     * Toggle objects class
-     * 
-     * @param obj - examined object
-     * @param clsName - class to be toggle
-     */
-    toggleClass : function(obj, clsName) {
-        if (MJ.hasClass(obj, clsName)) {
-            MJ.removeClass(obj, clsName);
-        } else {
-            MJ.addClass(obj, clsName);
-        }
-    },
+	/**
+	 * Toggle objects class
+	 * 
+	 * @param obj - examined object
+	 * @param clsName - class to be toggle
+	 */
+	toggleClass : function(obj, clsName) {
+		if (MJ.hasClass(obj, clsName)) {
+			MJ.removeClass(obj, clsName);
+		} else {
+			MJ.addClass(obj, clsName);
+		}
+	},
 
-    /**
-     * Cross-browser event addition
-     *
-     * @param obj
-     * @param eventType
-     * @param eventHandler
-     * @param useCapture
-     */
-    addEvent : function(obj, eventType, eventHandler, useCapture) {
-        useCapture || (useCapture = false);
-        if (obj.addEventListener) {
-            obj.addEventListener(eventType, eventHandler, true);
-        } else if (obj.attachEvent) {
-            obj.attachEvent('on'+eventType, eventHandler);
-        }
-    },
-        
-    /**
-     * Get objects absolute position
-     * @param obj
-     * @return x, y
-     */
-    getPosition : function(obj) {
-        var xOffset = 0, yOffset=0;
-        while(obj!=null){
-        	xOffset += obj.offsetLeft;
-            yOffset += obj.offsetTop;
-            obj = obj.offsetParent;
-        }
-        return {
-            x: xOffset,
-            y: yOffset
-        };
-    }
+	/**
+	 * Cross-browser event addition
+	 * 
+	 * @param obj
+	 * @param eventType
+	 * @param eventHandler
+	 * @param useCapture
+	 */
+	addEvent : function(obj, eventType, eventHandler, useCapture) {
+		useCapture || (useCapture = false);
+		if (obj.addEventListener) {
+			obj.addEventListener(eventType, eventHandler, true);
+		} else if (obj.attachEvent) {
+			obj.attachEvent('on' + eventType, eventHandler);
+		}
+	},
+
+	/**
+	 * Get objects absolute position
+	 * 
+	 * @param obj
+	 * @return x, y
+	 */
+	getPosition : function(obj) {
+		var xOffset = 0, yOffset = 0;
+		while (obj != null) {
+			xOffset += obj.offsetLeft;
+			yOffset += obj.offsetTop;
+			obj = obj.offsetParent;
+		}
+		return {
+			x : xOffset,
+			y : yOffset
+		};
+	}
 };
