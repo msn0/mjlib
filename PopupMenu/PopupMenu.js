@@ -111,8 +111,10 @@ var PopupMenu = function(params) {
 	var calculatePosition = function() {
 		var position = MJ.getPosition(that.element);
 		that.xOffset = (function() {
+			var clientWidth = document.documentElement.clientWidth === 0 ? document.body.clientWidth
+					: document.documentElement.clientWidth;
 			var diff = position.x + Number(that.width.replace(/(px)|(pt)/, ''))
-					- document.documentElement.clientWidth;
+					- clientWidth;
 			if (diff > 0) {
 				return position.x - diff - 5;
 			} else {
@@ -132,6 +134,7 @@ var PopupMenu = function(params) {
 		divElement.style.top = that.yOffset + 'px';
 		divElement.style.left = that.xOffset + 'px';
 		divElement.style.display = 'none';
+		divElement.style.position = 'absolute';
 	};
 
 	/**

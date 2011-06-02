@@ -1,6 +1,6 @@
 /**
  * mjlib is released under the MIT License
- * Copyright (c) 2011 Michał Jezierski
+ * Copyright (c) 2011 Michał Jezierski [ambinanitelo (at) g m a i l (dot) c 0 m]
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,9 @@
  */
 
 /**
- * MJ core object. Actual functionality contains: 
- *  (1) very fast css class manipulation engine 
- *  (2) cross-browser support 
- *  (3) getting elements absolute position
+ * MJ core object. Actual functionality contains: (1) fast css class
+ * manipulation engine (2) cross-browser support (3) getting elements absolute
+ * position (4) xhr requests
  */
 var MJ = {
 
@@ -101,21 +100,26 @@ var MJ = {
 	},
 
 	/**
-	 * Get objects absolute position
-	 * 
-	 * @param obj
-	 * @return x, y
-	 */
-	getPosition : function(obj) {
-		var xOffset = 0, yOffset = 0;
-		while (obj != null) {
-			xOffset += obj.offsetLeft;
-			yOffset += obj.offsetTop;
-			obj = obj.offsetParent;
-		}
-		return {
-			x : xOffset,
-			y : yOffset
-		};
-	}
+     * Get objects absolute position
+     * @param obj
+     * @return x, y
+     */
+    getPosition : function(obj) {
+        var xOffset = 0, yOffset=0;
+        if(obj.offsetParent) {
+            while(obj!=null){
+                xOffset += obj.offsetLeft;
+                yOffset += obj.offsetTop;
+                obj = obj.offsetParent;
+            }
+        } else if(obj.x) {
+            xOffset += obj.x;
+            yOffset += obj.y;
+        }
+        return {
+            x: xOffset,
+            y: yOffset
+        };
+    }
+	
 };
