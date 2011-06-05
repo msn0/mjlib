@@ -11,17 +11,16 @@
     <body>
         
         <script type="text/javascript">
-		
+		"use strict";
+
             var dialog = new Dialog({
                 message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut purus eu nunc pellentesque facilisis. Pellentesque dapibus ultrices dui eu luctus. Pellentesque ac ipsum nunc.",
                 headerText: "Lorem Ipsum",
                 width: "450px",
-                closable: true,
-                buttonOk: true,
                 movable:true
             });
-            dialog.show();
-            dialog.setMovable();
+            dialog.open();
+	    dialog.show();
 		
         </script>
 

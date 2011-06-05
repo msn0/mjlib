@@ -7,6 +7,10 @@ var Dialog = function(params){
      * Div element containing dialog window
      */
     var element;
+	
+	var handlerElement;
+
+	var messageElement;
 
     /**
      * Close dialog button
@@ -92,7 +96,25 @@ var Dialog = function(params){
     /**
      * Czy ma być wyświetlany przycisk "ok"?
      */
-    this.buttonOk = (typeof (params.buttonOk) === 'boolean') ? params.buttonOk : true;
+    var buttonOk = (function(){
+        if (params.hasOwnProperty('buttonOk')){
+            if(typeof(params.buttonOk) === 'boolean'){
+                return params.buttonOk;
+            }
+            else {
+                if(params.buttonOk === "true"){
+                    return true;
+                }
+                else if(params.buttonOk === "false"){
+                    return false;
+                }
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    })();
 
     /**
      * Replacement for standard "Ok" message
@@ -125,31 +147,30 @@ var Dialog = function(params){
         // center window
         element.style.left = Math.floor((document.body.clientWidth/2 - (parseInt(that.width.replace("px", ""), 10)/2))) + "px";
 
-        that.windowHandler = document.createElement("div");
-        that.windowHandler.className = 'stp-dialog-windowHandler';
-        that.windowHandler.setAttribute("id", handlerId);
-        that.windowHandler.innerHTML = "<span class='stp-dialog-windowHeaderText'>"+that.headerText+"</span>";
+        handlerElement = document.createElement("div");
+        handlerElement.className = 'stp-dialog-windowHandler';
+        handlerElement.setAttribute("id", handlerId);
+        handlerElement.innerHTML = "<span class='stp-dialog-windowHeaderText'>"+that.headerText+"</span>";
 
-        that.windowMessage = document.createElement("div");
-        that.windowMessage.className = 'stp-dialog-windowMessage';
-        that.windowMessage.innerHTML = that.message;
+        messageElement = document.createElement("div");
+        messageElement.className = 'stp-dialog-windowMessage';
+        messageElement.innerHTML = that.message;
         
-        MJ.addEvent(element, 'mousedown', dialogOnMouseDown);
+		/* bring window to front */        
+		MJ.addEvent(element, 'mousedown', dialogOnMouseDown);
 
         increaseIndex();
-
-        if(that.closable === true){
+        if(closable === true){
             var closeX = document.createElement('span');
-            //closeX.setAttribute("class", "stp-dialog-closeButton");
             closeX.className = 'stp-dialog-closeButton';
             MJ.addEvent(closeX, 'click', (function(e){
                 return function(){
                     e.closeDialog();
                 }
             })(that));
-            that.windowHandler.appendChild(closeX);
+            handlerElement.appendChild(closeX);
         }
-        if(that.buttonOk === true){
+        if(buttonOk === true){
             var d = document.createElement('div');
             d.style.textAlign = "right";
             d.style.padding = "20px 0px 0px 0px";
@@ -161,9 +182,11 @@ var Dialog = function(params){
                 }
             })(that));
             d.appendChild(closeButton);
-            that.windowMessage.appendChild(d);
+            messageElement.appendChild(d);
         }
-        
+		if(movable === true){	
+			that.setMovableElement();
+        }
     };
     
     /**
@@ -177,6 +200,11 @@ var Dialog = function(params){
         element.style.zIndex = getHighestIndex()+1;
 
     };
+
+	var isOpened = function(){
+		console.log(!!document.getElementById(that.getWindowId()));
+		return !!document.getElementById(that.getWindowId());
+	};
     
     var getHighestIndex = function(){
         var highestIndex = 0;
@@ -224,6 +252,20 @@ var Dialog = function(params){
         return handlerId;
     };
     
+	/**
+     * Get handlerElement
+     */
+    this.getHandlerElement = function(){
+        return handlerElement;
+    };
+
+	/**
+     * Get messageElement
+     */
+    this.getMessageElement = function(){
+        return messageElement;
+    };
+
     /**
      * Get movableElement
      */
@@ -235,7 +277,7 @@ var Dialog = function(params){
      * Set movableElement
      */
     this.setMovableElement = function(){
-        movableElement = MovableElement.setMovableElement(document.getElementById(this.getHandlerId()), document.getElementById(this.getWindowId()));
+        movableElement = MovableElement.setMovableElement(this.getHandlerElement, this.getElement);
     };
     
     /**
@@ -249,12 +291,7 @@ var Dialog = function(params){
      * Set movable
      */
     this.setMovable = function(params){
-//        if(typeof params !== "undefined" && params.hasOwnProperty('handlerId')){
-//            this.movable && MovableElement.setMovableElement(document.getElementById(params.handlerId), document.getElementById(this.getWindowId()));
-//        }
-//        else {
-            this.movable && MovableElement.setMovableElement(document.getElementById(this.getHandlerId()), document.getElementById(this.getWindowId()));
-//        }
+    	//this.movable && MovableElement.setMovableElement(document.getElementById(this.getHandlerId()), document.getElementById(this.getWindowId()));
     };
     
     /**
@@ -265,27 +302,36 @@ var Dialog = function(params){
         closeButton.innerHTML = text;
     };
 
+	/**
+	 * Open dialog (append to body)
+	 */
+	this.open = function(){
+		if(!isOpened()){
+    		this.getElement().appendChild(this.windowHandler);
+    		this.getElement().appendChild(this.windowMessage);
+    		document.body.appendChild(this.getElement());
+		}
+	};
+
     createDialog();
 };
 
 /**
- * Metoda pokazuje okienko dialogowe
+ * Show Dialog
  */
-Dialog.prototype.show = function(params){
-    params = params || {};
-    this.getElement().appendChild(this.windowHandler);
-    this.getElement().appendChild(this.windowMessage);
-    document.body.appendChild(this.getElement());
-    
-    this.setMovableElement();
-    
-    if(typeof params.setmovable !== "undefined" && params.setmovable !== 'false'){
-        this.movable && MovableElement.setMovableElement(document.getElementById(this.getHandlerId()), document.getElementById(this.getWindowId()));
-    }
+Dialog.prototype.show = function(){
+    this.getElement().style.display = "block";
 };
 
 /**
- * Zamyka okno o podanym id oraz uruchamia handler 
+ * Hide Dialog
+ */
+Dialog.prototype.hide = function(){
+    this.getElement().style.display = "none";
+};
+
+/**
+ * Zamyka okno oraz uruchamia handler 
  * zdefiniowany przez użytkownika
  */
 Dialog.prototype.closeDialog = function(){
