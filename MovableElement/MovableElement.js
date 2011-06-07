@@ -27,6 +27,7 @@ function MovableElement(handlerElement, elementToMove){
         that.handlerElement.style.cursor = "move";
         document.onmouseup = mouseUp;
         document.onmousemove = mouseMove;
+        that.handlerElement.onselectstart = function(){return false;}
         if (event.pageY){
             that.x = event.pageX;
             that.y = event.pageY;
@@ -70,7 +71,7 @@ function MovableElement(handlerElement, elementToMove){
         this.handlerElement.removeEventListener('mousedown', mouseDown, false)
     };
     
-    MJ.addEvent(this.handlerElement, 'mousedown', mouseDown, false);
+    MJ.addEvent(this.handlerElement, 'mousedown', mouseDown, true);
 }
 
 /**
