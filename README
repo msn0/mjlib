@@ -3,6 +3,8 @@ mjlib is pure javascript library.
 Current features:
 - Core: fast class and events manipulation engine.
 - PopupMenu
+- Dialog windows
+- support for movable elements
 - more features/widgets coming soon...
 
 mjlib is released under MIT license
