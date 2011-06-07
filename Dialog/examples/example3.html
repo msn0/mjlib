@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>ContextLikeMenu example1</title>
+        <script type="text/javascript" src="../../Core/mjlib.js"></script>
+        <script type="text/javascript" src="../../MovableElement/MovableElement.js"></script>
+        <script type="text/javascript" src="../Dialog.js"></script>
+        <link href="../themes/plain/main.css" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+
+        <script type="text/javascript">
+            "use strict";
+
+            var dialog1 = new Dialog({
+                message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut purus eu nunc pellentesque facilisis. Pellentesque dapibus ultrices dui eu luctus. Pellentesque ac ipsum nunc.",
+                headerText: "Lorem Ipsum",
+                width: "450px",
+                movable:true,
+                closeHandler: function(){alert('Alert from close handler!');}
+            });
+            
+            var dialog2 = new Dialog({
+                message: "Vestibulum malesuada, nunc eget semper dapibus, nulla turpis eleifend dolor, sit amet malesuada neque lacus id ante. Nunc dictum justo id mi posuere eu consectetur diam aliquam. Suspendisse sagittis, erat nec pulvinar pulvinar, elit erat gravida neque, ac commodo ligula mauris sed tellus. Nulla in tellus justo. In nibh dui, tempus facilisis feugiat eget, pretium non elit. Vivamus felis sapien, ultrices eget posuere ut, accumsan vitae ante. Suspendisse potenti. Curabitur pellentesque tincidunt nisl nec hendrerit.",
+                headerText: "Vestibulum malesuada, nunc eget semper dapibus",
+                width: "450px",
+                movable:true,
+                closable: false
+            });
+            
+            var dialog3 = new Dialog({
+                message: "Integer ipsum felis, condimentum at accumsan at, porta ac est. Integer neque sem, laoreet ornare viverra eu, venenatis eu ligula. Fusce semper enim a justo semper quis gravida felis suscipit. Fusce euismod orci eros. Pellentesque vel adipiscing nisl.",
+                headerText: "Integer ipsum felis",
+                width: "450px",
+                movable:true,
+                buttonOk: false,
+                closeHandler: function(){alert('Bye!');}
+            });
+            
+            dialog1.show();
+            dialog2.show();
+            dialog3.show();
+		
+        </script>
+
+    </body>
+</html>
