@@ -65,13 +65,12 @@ function MovableElement(handlerElement, elementToMove){
         return;
     };
     
-    // TODO:
+    // TODO: removing events doesn't work yet
     this.removeMovableElement = function(){
         this.handlerElement.removeEventListener('mousedown', mouseDown, false)
-        //MJ.addEvent(handlerElement, 'mousedown', mouseDown);  
     };
     
-    MJ.addEvent(this.handlerElement, 'mousedown', mouseDown);
+    MJ.addEvent(this.handlerElement, 'mousedown', mouseDown, false);
 }
 
 /**

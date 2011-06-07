@@ -14,9 +14,10 @@
 .stp-dialog-windowHandler {
     width:100%;
     font-family:arial;
-    color:#111;
+    color:#666;
     text-align: justify;
     padding-bottom: 2px;
+    margin-bottom:5px;
 }
 .stp-dialog-windowMessage {
     color: black;

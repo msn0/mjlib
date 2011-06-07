@@ -4,13 +4,24 @@
 var Dialog = function(params){
 
     /**
-     * Div element containing dialog window
+     * Main DOM element containing dialog window
      */
     var element;
-	
-	var handlerElement;
 
-	var messageElement;
+    /**
+     * Element containing window handler
+     */
+    var handlerElement;
+    
+    /**
+     * Element containing message
+     */
+    var messageElement;
+    
+    /**
+     * MovableElement attached to dialog 
+     */
+    var movableElement;
 
     /**
      * Close dialog button
@@ -18,32 +29,32 @@ var Dialog = function(params){
     var closeButton;
 
     /**
-     * Id okna komunikatu
+     * Dialog ID
      */
     var windowId = params.windowId || "stp-dialog-"+Math.floor(1000*Math.random());
 
     /**
-     * Belka do przesuwania
+     * Handler ID
      */
     var handlerId = params.handlerId || "stp-dialog-handler-"+Math.floor(1000*Math.random());
 
     /**
-     * Szerokość okna
+     * Dialog width
      */
     this.width = params.width || "250px";
 
     /**
-     * Długość okna
+     * Dialog height
      */
     this.height = params.height || "auto";
 
     /**
-     * Tytuł okna
+     * Dialog header text
      */
     this.headerText = params.headerText;
 
     /**
-     * Komunikat
+     * Message
      */
     this.message = params.message;
 
@@ -94,7 +105,7 @@ var Dialog = function(params){
     })();
         
     /**
-     * Czy ma być wyświetlany przycisk "ok"?
+     * Is close (x) button displayed?
      */
     var buttonOk = (function(){
         if (params.hasOwnProperty('buttonOk')){
@@ -122,19 +133,18 @@ var Dialog = function(params){
     var buttonOkMessage = params.buttonOkMessage || "Ok";
 
     /**
-     * that = this dla prywatnych metod
+     * that = this for private methods
      */
     var that = this;
 
     /**
-     * Czy ma być wyświetlany przycisk "ok"?
+     * Is "OK" button displayed?
      */
     this.closeHandler = params.closeHandler || function(){};
     
-    var movableElement;
-
     /**
-     * Tworzy okno dialogowe
+     * Create Dialog's DOM nodes
+     * @private
      */
     var createDialog = function(){
 
@@ -146,6 +156,7 @@ var Dialog = function(params){
         element.style.height = that.height;
         // center window
         element.style.left = Math.floor((document.body.clientWidth/2 - (parseInt(that.width.replace("px", ""), 10)/2))) + "px";
+        element.style.top = "200px";
 
         handlerElement = document.createElement("div");
         handlerElement.className = 'stp-dialog-windowHandler';
@@ -156,8 +167,8 @@ var Dialog = function(params){
         messageElement.className = 'stp-dialog-windowMessage';
         messageElement.innerHTML = that.message;
         
-		/* bring window to front */        
-		MJ.addEvent(element, 'mousedown', dialogOnMouseDown);
+        /* bring window to front */        
+        MJ.addEvent(element, 'mousedown', dialogOnMouseDown);
 
         increaseIndex();
         if(closable === true){
@@ -184,28 +195,33 @@ var Dialog = function(params){
             d.appendChild(closeButton);
             messageElement.appendChild(d);
         }
-		if(movable === true){	
-			that.setMovableElement();
+        if(movable === true){	
+            that.setMovableElement();
         }
     };
     
     /**
-     * Bring window to front
+     * Bring window to front when left mouse
+     * button was pressed.
+     * @private
      */
     var dialogOnMouseDown = function(){
-        document.getElementById(windowId).style.zIndex = getHighestIndex()+1;
+        element.style.zIndex = getHighestIndex()+1;
     };
 
+    /**
+     * Increase z-index
+     * @private
+     */
     var increaseIndex = function(){
         element.style.zIndex = getHighestIndex()+1;
 
     };
 
-	var isOpened = function(){
-		console.log(!!document.getElementById(that.getWindowId()));
-		return !!document.getElementById(that.getWindowId());
-	};
-    
+    /**
+     * Get highest z-index
+     * @private
+     */
     var getHighestIndex = function(){
         var highestIndex = 0;
         var currentIndex = 0;
@@ -223,49 +239,86 @@ var Dialog = function(params){
         }
         return highestIndex;
     };
+
+    /**
+     * Is dialog already appended to body?
+     * @private
+     */
+    var isOpened = function(){
+        return !!document.getElementById(windowId);
+    };
     
     /**
-     * Returns div element
+     * Open dialog (append to body)
+     * @private
+     */
+    var open = function(){
+        if(!isOpened()){
+            element.appendChild(handlerElement);
+            element.appendChild(messageElement);
+            document.body.appendChild(element);
+            var count = 0;
+            var el = document.getElementsByTagName('div');
+            for(var i=0; i<el.length; i++){
+                if(el[i].className === 'stp-dialog-window'){
+                    count++;
+                }
+            }
+            element.style.top = Number(element.style.top.replace(/px/, ''))+50*(count-1) + "px";
+            element.style.left = Number(element.style.left.replace(/px/, ''))+50*(count-1) + "px";
+        }
+    };
+    
+    /**
+     * Get main element
      */
     this.getElement = function(){
         return element;
     };
     
     /**
-     * Get buttonOkMessage
-     */
-    this.getButtonOkMessage = function(){
-        return buttonOkMessage;
-    };
-    
-    /**
-     * Get windowId
-     */
-    this.getWindowId = function(){
-        return windowId;
-    };
-    
-    /**
-     * Get handlerId
-     */
-    this.getHandlerId = function(){
-        return handlerId;
-    };
-    
-	/**
      * Get handlerElement
      */
     this.getHandlerElement = function(){
         return handlerElement;
     };
 
-	/**
+    /**
      * Get messageElement
      */
     this.getMessageElement = function(){
         return messageElement;
     };
-
+    
+    /**
+     * Get button text
+     */
+    this.getButtonOkMessage = function(){
+        return buttonOkMessage;
+    };
+    
+    /**
+     * Set button text
+     */
+    this.setButtonOkMessage = function(text){
+        buttonOkMessage = text;
+        closeButton.innerHTML = text;
+    };
+    
+    /**
+     * Get dialog's main window ID
+     */
+    this.getWindowId = function(){
+        return windowId;
+    };
+    
+    /**
+     * Get dialog's window handler ID
+     */
+    this.getHandlerId = function(){
+        return handlerId;
+    };
+    
     /**
      * Get movableElement
      */
@@ -277,64 +330,46 @@ var Dialog = function(params){
      * Set movableElement
      */
     this.setMovableElement = function(){
-        movableElement = MovableElement.setMovableElement(this.getHandlerElement, this.getElement);
+        movableElement = MovableElement.setMovableElement(this.getHandlerElement(), this.getElement());
     };
     
     /**
-     * Get movable
+     * Get movable property
      */
     this.getMovable = function(){
         return movable;
     };
     
     /**
-     * Set movable
+     * Set movable property
      */
     this.setMovable = function(params){
-    	//this.movable && MovableElement.setMovableElement(document.getElementById(this.getHandlerId()), document.getElementById(this.getWindowId()));
+    //this.getMovableElement().removeMovableElement();
     };
     
     /**
-     * Set buttonOkMessage
+     * Show Dialog
      */
-    this.setButtonOkMessage = function(text){
-        buttonOkMessage = text;
-        closeButton.innerHTML = text;
+    this.show = function(){
+        !isOpened() && open();
+        this.getElement().style.display = "block";
     };
 
-	/**
-	 * Open dialog (append to body)
-	 */
-	this.open = function(){
-		if(!isOpened()){
-    		this.getElement().appendChild(this.windowHandler);
-    		this.getElement().appendChild(this.windowMessage);
-    		document.body.appendChild(this.getElement());
-		}
-	};
+    /**
+     * Hide Dialog
+     */
+    this.hide = function(){
+        this.getElement().style.display = "none";
+    };
+
+    /**
+     * Close dialog (remove it from body) and run
+     * user defined handler (if any)
+     */
+    this.closeDialog = function(){
+        document.body.removeChild(document.getElementById(this.getElement().getAttribute('id')));
+        this.closeHandler(this.getElement().getAttribute('id'));
+    };
 
     createDialog();
-};
-
-/**
- * Show Dialog
- */
-Dialog.prototype.show = function(){
-    this.getElement().style.display = "block";
-};
-
-/**
- * Hide Dialog
- */
-Dialog.prototype.hide = function(){
-    this.getElement().style.display = "none";
-};
-
-/**
- * Zamyka okno oraz uruchamia handler 
- * zdefiniowany przez użytkownika
- */
-Dialog.prototype.closeDialog = function(){
-    document.body.removeChild(document.getElementById(this.getWindowId()));
-    this.closeHandler(this.getWindowId());
 };
