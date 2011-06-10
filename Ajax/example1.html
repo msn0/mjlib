@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Ajax using separate thread - xhr as WebWorker</title>
+        <script type="text/javascript" src="./ajax.js"></script>
+    </head>
+    <body>
+
+        <div id="time" style="font-size:140px;display:none;">
+            <span id="h"></span>:<span id="m"></span>:<span id="s"></span>
+        </div>
+
+        <div id="timestamp" style="font-size:140px;"></div>
+
+        <script type="text/javascript">
+
+            if(typeof Worker === 'undefined'){
+                alert('Twoja przegladarka nie ma wsparcia dla WebWorkers!');
+            }
+
+            var c = document.getElementById('console');
+
+            var send = function(){
+                MJ.ajax({
+                    url: './getDate.php?t=0',
+                    data: {},
+                    success: function(response){
+                        successHandler(response);
+                    }
+                });
+            };
+
+            var successHandler = function(response){
+            	
+                document.getElementById('time').style.display = 'block';
+                var json = JSON.parse(response);
+                document.getElementById('h').innerHTML = (function(){
+                    if(json.h<10){
+                        json.h = "0"+json.h;
+                    }
+                    return json.h;
+                })();
+                document.getElementById('m').innerHTML = (function(){
+                    if(json.m<10){
+                        json.m = "0"+json.m;
+                    }
+                    return json.m;
+                })();
+                document.getElementById('s').innerHTML = (function(){
+                    if(json.s<10){
+                        json.s = "0"+json.s;
+                    }
+                    return json.s;
+                })();
+            };
+            
+            send();
+            window.setInterval(send, 100);
+        </script>
+
+    </body>
+</html>
