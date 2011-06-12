@@ -45,7 +45,7 @@
 		};
 		if (request.readyState === 4) return;
 		request.send(params.data);
-	}
+	};
 
 	onmessage = function(e){
 		MJ.xhr(e.data);
