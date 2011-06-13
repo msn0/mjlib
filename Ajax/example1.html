@@ -15,7 +15,9 @@
         <script type="text/javascript">
             (function(){
                 if(typeof Worker === 'undefined'){
-                    alert('Sorry, your browser does not support WebWorkers. See https://developer.mozilla.org/en/Using_web_workers#section_17 for supported browsers.');
+                    var d = document.createElement('div');
+                    d.innerHTML = 'Sorry, your browser does not support WebWorkers. See https://developer.mozilla.org/en/Using_web_workers#section_17 for supported browsers.';
+                    document.body.appendChild(d);
                 }
 
                 var send = function(){
