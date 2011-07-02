@@ -1,4 +1,4 @@
-.stp-dialog-window {
+.mj-dialog-window {
     width:250px;
     height:120px;
     background-color: white;
@@ -11,7 +11,7 @@
     -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.5), 0 0 0 #727272 inset;
     padding: 10px;
 }
-.stp-dialog-windowHandler {
+.mj-dialog-windowHandler {
     width:100%;
     font-family:arial;
     color:#666;
@@ -19,19 +19,19 @@
     padding-bottom: 2px;
     margin-bottom:5px;
 }
-.stp-dialog-windowMessage {
+.mj-dialog-windowMessage {
     color: black;
     font-family: arial;
     font-size: 12px;
     padding: 0px;
 }
 
-.stp-dialog-windowMessage button {
+.mj-dialog-windowMessage button {
     font-family: arial;
     font-size: 13px;
 }
 
-.stp-dialog-windowHeaderText {
+.mj-dialog-windowHeaderText {
     white-space: nowrap;
     display: inline-block;
     font-family:arail,sans-serif;
@@ -39,25 +39,25 @@
     position:relative;
 }
 
-.stp-dialog-windowHeaderText a {
+.mj-dialog-windowHeaderText a {
     text-decoration: none;
     color:#1111CC;
 }
 
-.stp-dialog-windowHeaderText a:hover {
+.mj-dialog-windowHeaderText a:hover {
     text-decoration: underline;
 }
 
-.stp-dialog-closeButton {
+.mj-dialog-closeButton {
     position: absolute;
     right: 4px;
     top: 5px;
     width: 11px;
     height: 11px;
-    background: transparent url('./stp-dialog-closeButton.png') 0 0 repeat-y;
+    background: transparent url('./mj-dialog-closeButton.png') 0 0 repeat-y;
     cursor: pointer;
     font-size: 6pt; /* IE hack */
 }
-.stp-dialog-closeButton:hover {
+.mj-dialog-closeButton:hover {
     background-position: 0px 11px;
 }

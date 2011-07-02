@@ -31,12 +31,12 @@ var Dialog = function(params){
     /**
      * Dialog ID
      */
-    var windowId = params.windowId || "stp-dialog-"+Math.floor(1000*Math.random());
+    var windowId = params.windowId || "mj-dialog-"+Math.floor(1000*Math.random());
 
     /**
      * Handler ID
      */
-    var handlerId = params.handlerId || "stp-dialog-handler-"+Math.floor(1000*Math.random());
+    var handlerId = params.handlerId || "mj-dialog-handler-"+Math.floor(1000*Math.random());
 
     /**
      * Dialog width
@@ -150,7 +150,7 @@ var Dialog = function(params){
 
         element = document.createElement('div');
         element.setAttribute("id", windowId);
-        element.className = 'stp-dialog-window';
+        element.className = 'mj-dialog-window';
         element.style.zIndex = "1000";
         element.style.width = that.width;
         element.style.height = that.height;
@@ -159,12 +159,12 @@ var Dialog = function(params){
         element.style.top = "200px";
 
         handlerElement = document.createElement("div");
-        handlerElement.className = 'stp-dialog-windowHandler';
+        handlerElement.className = 'mj-dialog-windowHandler';
         handlerElement.setAttribute("id", handlerId);
-        handlerElement.innerHTML = "<span class='stp-dialog-windowHeaderText'>"+that.headerText+"</span>";
+        handlerElement.innerHTML = "<span class='mj-dialog-windowHeaderText'>"+that.headerText+"</span>";
 
         messageElement = document.createElement("div");
-        messageElement.className = 'stp-dialog-windowMessage';
+        messageElement.className = 'mj-dialog-windowMessage';
         messageElement.innerHTML = that.message;
         
         /* bring window to front */        
@@ -173,7 +173,7 @@ var Dialog = function(params){
         increaseIndex();
         if(closable === true){
             var closeX = document.createElement('span');
-            closeX.className = 'stp-dialog-closeButton';
+            closeX.className = 'mj-dialog-closeButton';
             MJ.addEvent(closeX, 'click', (function(e){
                 return function(){
                     e.closeDialog();
@@ -260,7 +260,7 @@ var Dialog = function(params){
             var count = 0;
             var el = document.getElementsByTagName('div');
             for(var i=0; i<el.length; i++){
-                if(el[i].className === 'stp-dialog-window'){
+                if(el[i].className === 'mj-dialog-window'){
                     count++;
                 }
             }
