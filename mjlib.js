@@ -139,4 +139,4 @@ var MJ = {
 // expose object
 window.MJ = MJ;
 
-)();
+})();
