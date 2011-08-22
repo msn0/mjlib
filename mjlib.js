@@ -118,5 +118,19 @@ var MJ = {
             x : xOffset,
             y : yOffset
         };
+    },
+
+    getElementsByClassName : function(root, className){
+        if(root.getElementsByClassName) {
+            return root.getElementsByClassName(className);
+        }
+        var scope = root.getElementsByTagName('*');
+        var elements = [];
+        for(var key in scope){
+            if(scope[key].className === className){
+                elements.push(scope[key]);
+            }
+        }
+        return elements;
     }
 };
