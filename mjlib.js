@@ -29,6 +29,7 @@
  *  (3) getting elements absolute position
  *  (4) ajax using separate thread - xhr as WebWorker
  */
+(function(){
 var MJ = {
 
     /**
@@ -134,3 +135,8 @@ var MJ = {
         return elements;
     }
 };
+
+// expose object
+window.MJ = MJ;
+
+)();
