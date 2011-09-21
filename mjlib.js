@@ -127,9 +127,9 @@ var MJ = {
         }
         var scope = root.getElementsByTagName('*');
         var elements = [];
-        for(var key in scope){
-            if(scope[key].className === className){
-                elements.push(scope[key]);
+        for(var i=0; i<scope.length; i++){
+            if(scope[i].className === className){
+                elements.push(scope[i]);
             }
         }
         return elements;
