@@ -1,9 +1,9 @@
-mjlib is a simple utility library
+<b>mjlib</b> is a simple utility library
 
 Current features:
 - Core: fast class and events manipulation engine.
 
-MJLIB is MIT Licensed
+<a href="http://en.wikipedia.org/wiki/MIT_License" target="_blank">MJLIB is MIT Licensed</a>
 
 Copyright (c) 2011 Michał Jezierski [ambinanitelo (at) g m a i l (dot) c o m]
 
